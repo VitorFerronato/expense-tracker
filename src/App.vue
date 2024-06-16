@@ -2,10 +2,13 @@
   <Header />
 
   <div class="container">
-    <Balance :total="total"/>
-    <IncomeExpenses />
-    <TransactionList :transactions="transactions" />
-    <AddTransaction />
+    <Balance :total="+total" />
+    <IncomeExpenses :income="+income" :expenses="+expenses" />
+    <TransactionList
+      :transactions="transactions"
+      @transactionDeleted="handleTransactionDelete"
+    />
+    <AddTransaction @transactionSubmit="handleTransactionSubmit" />
   </div>
 </template>
 
@@ -15,19 +18,73 @@ import Balance from "./components/Balance.vue";
 import IncomeExpenses from "./components/IncomeExpenses.vue";
 import TransactionList from "./components/TransactionList.vue";
 import AddTransaction from "./components/AddTransaction.vue";
+import { ref, computed, onMounted } from "vue";
 
-import { ref, computed } from "vue";
+import { useToast } from "vue-toastification";
+const toast = useToast();
 
-const transactions = ref([
-  { id: 1, text: "Adelbert", amount: 1 },
-  { id: 2, text: "Tabbie", amount: -2 },
-  { id: 3, text: "Maribelle", amount: 3 },
-  { id: 4, text: "Sholom", amount: -4 },
-]);
+onMounted(() => {
+  const savedTransactions = JSON.parse(localStorage.getItem("transactions"));
 
+  if (savedTransactions) transactions.value = savedTransactions;
+});
+
+//DATA
+const transactions = ref([]);
+
+// COMPUTED
 const total = computed(() => {
   return transactions.value.reduce((acc, transaction) => {
     return acc + transaction.amount;
   }, 0);
 });
+
+const income = computed(() => {
+  return transactions.value
+    .filter((transaction) => transaction.amount > 0)
+    .reduce((acc, transaction) => {
+      return acc + transaction.amount;
+    }, 0)
+    .toFixed(2);
+});
+
+const expenses = computed(() => {
+  return transactions.value
+    .filter((transaction) => transaction.amount < 0)
+    .reduce((acc, transaction) => {
+      return acc + transaction.amount;
+    }, 0)
+    .toFixed(2);
+});
+
+// FUNCTIONS
+const handleTransactionSubmit = (transactionData) => {
+  transactions.value.push({
+    id: generateUniqueId(),
+    text: transactionData.text,
+    amount: transactionData.amount,
+  });
+
+  saveTransactionsToLocalStorage();
+
+  toast.success("Transaction added");
+};
+
+const generateUniqueId = () => {
+  return Math.floor(Math.random() * 100000);
+};
+
+const handleTransactionDelete = (id) => {
+  transactions.value = transactions.value.filter(
+    (transaction) => transaction.id !== id
+  );
+
+  saveTransactionsToLocalStorage();
+
+  toast.success("Transaction deleted");
+};
+
+const saveTransactionsToLocalStorage = () => {
+  localStorage.setItem("transactions", JSON.stringify(transactions.value));
+};
 </script>
