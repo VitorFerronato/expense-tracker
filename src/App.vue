@@ -2,16 +2,32 @@
   <Header />
 
   <div class="container">
-    <Balance />
+    <Balance :total="total"/>
     <IncomeExpenses />
+    <TransactionList :transactions="transactions" />
+    <AddTransaction />
   </div>
 </template>
 
-<script>
+<script setup>
 import Header from "./components/Header.vue";
 import Balance from "./components/Balance.vue";
 import IncomeExpenses from "./components/IncomeExpenses.vue";
-export default {
-  components: { Header, Balance, IncomeExpenses },
-};
+import TransactionList from "./components/TransactionList.vue";
+import AddTransaction from "./components/AddTransaction.vue";
+
+import { ref, computed } from "vue";
+
+const transactions = ref([
+  { id: 1, text: "Adelbert", amount: 1 },
+  { id: 2, text: "Tabbie", amount: -2 },
+  { id: 3, text: "Maribelle", amount: 3 },
+  { id: 4, text: "Sholom", amount: -4 },
+]);
+
+const total = computed(() => {
+  return transactions.value.reduce((acc, transaction) => {
+    return acc + transaction.amount;
+  }, 0);
+});
 </script>
