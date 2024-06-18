@@ -1,6 +1,7 @@
 # expense-tracker
 
 This template should help get you started developing with Vue 3 in Vite.
+![image](https://github.com/VitorFerronato/expense-tracker/assets/94748997/abed1e1c-9323-4a41-b88c-c13d6b9aa938)
 
 ## Recommended IDE Setup
 
