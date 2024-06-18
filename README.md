@@ -1,30 +1,29 @@
 # expense-tracker
+<p align="center">
+  <img src="https://github.com/VitorFerronato/expense-tracker/assets/94748997/abed1e1c-9323-4a41-b88c-c13d6b9aa938" alt="Expense Tracker" width="300"/>
+</p>
 
-This template should help get you started developing with Vue 3 in Vite.
-![image](https://github.com/VitorFerronato/expense-tracker/assets/94748997/abed1e1c-9323-4a41-b88c-c13d6b9aa938)
 
-## Recommended IDE Setup
+## Description
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+The Expense Tracker is a simple yet powerful web application designed to help you manage your personal finances effortlessly. With this application, you can easily record and track your expenses and income, providing a clear view of your overall financial balance
 
-## Customize configuration
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+## 🚀 Features
 
-## Project Setup
+* Add Expenses and Income: Easily input your expenses and income entries to keep an accurate record of your financial activities.
+* View Balance: The application calculates and displays your total balance based on your recorded transactions, giving you an up-to-date overview of your financial status.
+* Local Storage: All your data is securely stored in the browser's localStorage, ensuring that your financial records are saved even after you close the browser.
+* Toast Notifications: Get real-time feedback with toast notifications for successful actions like adding, deleting, or updating entries.
 
-```sh
-npm install
-```
+## 💻 Technologies Used
 
-### Compile and Hot-Reload for Development
+- **Vue.js**: The project is built using Vue.js, a progressive JavaScript framework, for creating a dynamic and reactive user interface.
+- **Composition** API: Leveraging the Composition API of Vue.js for better modularity and organization of the code.
+- **LocalStorage**: Utilized for storing the financial data locally within the browser, providing persistence without the need for a backend.
+- **Toast Notifications**: Implemented to enhance user experience with immediate and non-intrusive alerts.
 
-```sh
-npm run dev
-```
+- ## Deploy
+- [Expense Tracker Live](https://expenseflow.netlify.app/)
 
-### Compile and Minify for Production
 
-```sh
-npm run build
-```
